@@ -2,25 +2,38 @@
 pragma solidity ^0.8.9;
 
 contract PetAdoption {
-  address public owner;
-  uint public petIndex = 0;
+   address public owner;
+   uint public petIndex = 0;
+   uint [] public allAdoptedPets;
 
-  constructor(uint initialPetIndex) {
-      petIndex = initialPetIndex;
-      owner = msg.sender;
-  }
+   mapping(uint => address) public petIdxToOwnerAddress;
+   mapping(address => uint[]) public ownerAddressToPetList;
 
-  modifier onlyOwner() {
-    require(msg.sender == owner, "Only the owner can call this function.");
-    _;
-  }
+   constructor(uint initialPetIndex) {
+         petIndex = initialPetIndex;
+         owner = msg.sender;
+   }
 
-  function addPet() public onlyOwner {
-   petIndex++;
-  }
+   modifier onlyOwner() {
+      require(msg.sender == owner, "Only the owner can call this function.");
+      _;
+   }
 
-  function getOwner() public view returns (address) {
-    return owner;
-  }
+   function addPet() public onlyOwner {
+      petIndex++;
+   }
+
+   function adobtPet(uint adoptIdx) public {
+      require(adoptIdx < petIndex, "Pet index does not exist.");
+      require(petIdxToOwnerAddress[adoptIdx] == address(0), "Pet is already adopted.");
+      
+      petIdxToOwnerAddress[adoptIdx] = msg.sender;
+      ownerAddressToPetList[msg.sender].push(adoptIdx);
+      allAdoptedPets.push(adoptIdx);
+   }
+
+   function getOwner() public view returns (address) {
+      return owner;
+   }
 
 }
