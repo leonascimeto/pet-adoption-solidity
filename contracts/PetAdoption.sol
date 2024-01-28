@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.9;
 
+import "hardhat/console.sol";
+
 contract PetAdoption {
    address public owner;
    uint public petIndex = 0;
@@ -26,7 +28,7 @@ contract PetAdoption {
    function adobtPet(uint adoptIdx) public {
       require(adoptIdx < petIndex, "Pet index does not exist");
       require(petIdxToOwnerAddress[adoptIdx] == address(0), "Pet is already adopted");
-      
+
       petIdxToOwnerAddress[adoptIdx] = msg.sender;
       ownerAddressToPetList[msg.sender].push(adoptIdx);
       allAdoptedPets.push(adoptIdx);
