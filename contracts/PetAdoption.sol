@@ -38,4 +38,11 @@ contract PetAdoption {
       return owner;
    }
 
+   function getAllAdoptedPetsByOwner() public view returns (uint[] memory) {
+      return ownerAddressToPetList[msg.sender];
+   }
+
+   function getAllAdoptedPets() public view returns (uint[] memory) {
+      return allAdoptedPets;
+   }
 }
