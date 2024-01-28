@@ -5,7 +5,7 @@
   "author": "leo <nascimentoleo899@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "hardhat test",
+    "test": "hardhat test --network localhost",
     "coverage": "hardhat coverage",
     "compile": "hardhat compile"
   },
